@@ -1,0 +1,35 @@
+.Sidebar{
+  width: var(--sidebar-width);
+  height: 100%;
+  font: var(--font-m);
+  color: var(--secondary-text);
+}
+
+.sort{
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
+
+p{
+  font:var(--font-l);
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.filter{
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
+
+.price{
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
+.airlines{
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
