@@ -2,14 +2,12 @@ import React from 'react';
 import cls from './Ticket.module.scss'
 import Segment from "../Segment/Segment";
 
-
 type TicketProps =
     | string
     | number
     | boolean
     | { [x: string]: TicketProps }
     | Array<TicketProps>;
-
 
 const Ticket = (props: any) => {
     const {
