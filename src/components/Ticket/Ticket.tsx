@@ -1,5 +1,6 @@
 import React from 'react';
 import cls from './Ticket.module.scss'
+import Segment from "../Segment/Segment";
 
 
 type TicketProps =
@@ -10,8 +11,13 @@ type TicketProps =
     | Array<TicketProps>;
 
 
-const Ticket = (props:any) => {
-    const{price}=props
+const Ticket = (props: any) => {
+    const {
+        price,
+        carrier,
+        legs,
+    } = props
+
     return (
         <div className={cls.Ticket}>
             <div className={cls.header}>
@@ -22,57 +28,29 @@ const Ticket = (props:any) => {
                 </div>
             </div>
             <div className={cls.segmentsWrap}>
-                <div className={cls.segment}>
-                    <div className={cls.segment_route}>
-                        <div className={cls.segment_route_arrived}> Москва, ШЕРЕМЕТЬЕВО (SVO)</div>
-                        <i className="fa-solid fa-arrow-right-long"></i>
-                        <div className={cls.segment_route_destination}>Лондон, Лондон, Хитроу (LHR)</div>
-                    </div>
-                    <hr className={cls.route_line}/>
-                    <div className={cls.segment_time}>
-                        <div className={cls.origin}>
-                            <div className={cls.time}>20:40</div>
-                            <div className={cls.date}>18 avg</div>
-                        </div>
-                        <div className={cls.route}><i className="fa-regular fa-clock"></i> 14h 45 min</div>
-                        <div className={cls.destination}>
-                            <div className={cls.date}>19 avg</div>
-                            <div className={cls.time}>09:25</div>
-                        </div>
-                    </div>
-                    <div className={cls.transfers_wrap}>
-                        <div className={cls.transfers_line}></div>
-                        <div className={cls.transfers}>1 transfer</div>
-                        <div className={cls.transfers_line}></div>
-                    </div>
-                    <div className={cls.segment_carrier}>Polish airlines</div>
-                </div>
+                <Segment
+                    departureCity={legs[0].segments[0].departureCity.caption}
+                    departureAirport={legs[0].segments[0].departureAirport}
+                    arrivalCity={legs[0].segments[legs[0].segments.length - 1].arrivalCity?.caption}
+                    arrivalAirport={legs[0].segments[legs[0].segments.length - 1].arrivalAirport}
+                    departureDate={legs[0].segments[0].departureDate}
+                    duration={legs[0].duration}
+                    arrivalDate={legs[0].segments[legs[0].segments.length - 1].arrivalDate}
+                    transfers={legs[0].segments.length - 1}
+                    airline={legs[0].segments[0].airline.caption}
+                />
                 <div className={cls.segment_line}></div>
-                <div className={cls.segment}>
-                    <div className={cls.segment_route}>
-                        <div className={cls.segment_route_arrived}> Москва, ШЕРЕМЕТЬЕВО (SVO)</div>
-                        <i className="fa-solid fa-arrow-right-long"></i>
-                        <div className={cls.segment_route_destination}>Лондон, Лондон, Хитроу (LHR)</div>
-                    </div>
-                    <hr className={cls.route_line}/>
-                    <div className={cls.segment_time}>
-                        <div className={cls.origin}>
-                            <div className={cls.time}>20:40</div>
-                            <div className={cls.date}>18 avg</div>
-                        </div>
-                        <div className={cls.route}><i className="fa-regular fa-clock"></i> 14h 45 min</div>
-                        <div className={cls.destination}>
-                            <div className={cls.date}>19 avg</div>
-                            <div className={cls.time}>09:25</div>
-                        </div>
-                    </div>
-                    <div className={cls.transfers_wrap}>
-                        <div className={cls.transfers_line}></div>
-                        <div className={cls.transfers}>1 transfer</div>
-                        <div className={cls.transfers_line}></div>
-                    </div>
-                    <div className={cls.segment_carrier}>Polish airlines</div>
-                </div>
+                <Segment
+                    departureCity={legs[1].segments[0].departureCity?.caption}
+                    departureAirport={legs[1].segments[0].departureAirport}
+                    arrivalCity={legs[1].segments[legs[1].segments.length - 1].arrivalCity?.caption}
+                    arrivalAirport={legs[1].segments[legs[1].segments.length - 1].arrivalAirport}
+                    departureDate={legs[1].segments[0].departureDate}
+                    duration={legs[1].duration}
+                    arrivalDate={legs[1].segments[legs[1].segments.length - 1].arrivalDate}
+                    transfers={legs[1].segments.length - 1}
+                    airline={legs[1].segments[0].airline.caption}
+                />
             </div>
             <button className={cls.btn}>ВЫБРАТЬ</button>
         </div>

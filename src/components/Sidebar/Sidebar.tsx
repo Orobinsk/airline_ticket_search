@@ -23,11 +23,11 @@ const Sidebar = () => {
                 <p>Фильтровать</p>
                 <label>
                     <input type="checkbox" name="filter" value="1 transfer" />
-                    - по возростанию цены
+                    - 1 пересадка
                 </label>
                 <label>
                     <input type="checkbox" name="sort" value="non-stop" />
-                    - по убыванию цены
+                    - без пересадок
                 </label>
             </div>
             <div className={cls.price}>
