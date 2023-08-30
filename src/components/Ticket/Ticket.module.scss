@@ -14,10 +14,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: end;
+  align-items: flex-end;
 }
 .price{
   font: var(--font-xl);
+}
+.price::after {
+  content:" \20BD"
 }
 .price_text{
   font: var(--font-s);
@@ -95,4 +98,8 @@
   color: white;
  height: 40px;
   cursor: pointer;
+
+}
+.btn:hover{
+  background: rgb(206, 137, 83);
 }

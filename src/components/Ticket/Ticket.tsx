@@ -1,13 +1,23 @@
 import React from 'react';
 import cls from './Ticket.module.scss'
 
-const Ticket = () => {
+
+type TicketProps =
+    | string
+    | number
+    | boolean
+    | { [x: string]: TicketProps }
+    | Array<TicketProps>;
+
+
+const Ticket = (props:any) => {
+    const{price}=props
     return (
         <div className={cls.Ticket}>
             <div className={cls.header}>
                 <div className={cls.icon}>icon</div>
                 <div className={cls.price_wrap}>
-                    <div className={cls.price}>2000R</div>
+                    <div className={cls.price}>{price}</div>
                     <div className={cls.price_text}>Стоимость для одного взрослого пассажира</div>
                 </div>
             </div>
@@ -15,7 +25,7 @@ const Ticket = () => {
                 <div className={cls.segment}>
                     <div className={cls.segment_route}>
                         <div className={cls.segment_route_arrived}> Москва, ШЕРЕМЕТЬЕВО (SVO)</div>
-                        <div>{'->'}</div>
+                        <i className="fa-solid fa-arrow-right-long"></i>
                         <div className={cls.segment_route_destination}>Лондон, Лондон, Хитроу (LHR)</div>
                     </div>
                     <hr className={cls.route_line}/>
@@ -24,7 +34,7 @@ const Ticket = () => {
                             <div className={cls.time}>20:40</div>
                             <div className={cls.date}>18 avg</div>
                         </div>
-                        <div className={cls.route}>clock 14h 45 min</div>
+                        <div className={cls.route}><i className="fa-regular fa-clock"></i> 14h 45 min</div>
                         <div className={cls.destination}>
                             <div className={cls.date}>19 avg</div>
                             <div className={cls.time}>09:25</div>
@@ -41,7 +51,7 @@ const Ticket = () => {
                 <div className={cls.segment}>
                     <div className={cls.segment_route}>
                         <div className={cls.segment_route_arrived}> Москва, ШЕРЕМЕТЬЕВО (SVO)</div>
-                        <div>{'->'}</div>
+                        <i className="fa-solid fa-arrow-right-long"></i>
                         <div className={cls.segment_route_destination}>Лондон, Лондон, Хитроу (LHR)</div>
                     </div>
                     <hr className={cls.route_line}/>
@@ -50,7 +60,7 @@ const Ticket = () => {
                             <div className={cls.time}>20:40</div>
                             <div className={cls.date}>18 avg</div>
                         </div>
-                        <div className={cls.route}>clock 14h 45 min</div>
+                        <div className={cls.route}><i className="fa-regular fa-clock"></i> 14h 45 min</div>
                         <div className={cls.destination}>
                             <div className={cls.date}>19 avg</div>
                             <div className={cls.time}>09:25</div>

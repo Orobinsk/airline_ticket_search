@@ -1,7 +1,7 @@
 import React from 'react';
 import Sidebar from "./components/Sidebar/Sidebar";
-import Ticket from "./components/Card/Ticket";
 import cls from './App.module.scss'
+import TicketList from "./components/TicketList";
 
 function App() {
     return (
@@ -10,7 +10,8 @@ function App() {
                 <Sidebar/>
                 <div className={cls.main}>
                     <div className={cls.tickets}>
-                        <Ticket/>
+                        {/*<Ticket/>*/}
+                        <TicketList/>
                     </div>
                     <button className={cls.btn} >Показать еще</button>
                 </div>
