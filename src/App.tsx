@@ -2,18 +2,17 @@ import React from 'react';
 import Sidebar from "./components/Sidebar/Sidebar";
 import cls from './App.module.scss'
 import TicketList from "./components/TicketList";
+import Flights from "./components/Flights";
 
 function App() {
     return (
         <div className={cls.app}>
             <div className={cls.wrapper}>
-                <Sidebar/>
+                    <Sidebar/>
                 <div className={cls.main}>
                     <div className={cls.tickets}>
-                        {/*<Ticket/>*/}
-                        <TicketList/>
+                        <Flights/>
                     </div>
-                    <button className={cls.btn} >Показать еще</button>
                 </div>
             </div>
         </div>

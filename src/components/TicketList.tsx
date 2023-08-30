@@ -1,32 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import tickets from '../data/flights.json'
 import Ticket from "./Ticket/Ticket";
+import cls from "../App.module.scss";
 
-type TicketProps =
-    | string
-    | number
-    | boolean
-    | { [x: string]: TicketProps }
-    | Array<TicketProps>;
 
-type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
+const TicketList = ({flights}:any) => {
 
-interface JSONObject {
-    [key: string]: JSONValue;
-}
+    //paginations
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5;
+    const indexOfLastItem = currentPage * itemsPerPage;
+    // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentFlights = flights.slice(1, indexOfLastItem);
+    //
+    // const totalPages = Math.ceil(flights.length / itemsPerPage);
 
-interface JSONArray extends Array<JSONValue> {
-}
-
-const TicketList = () => {
-    // @ts-ignore
-    const [flights, setFlights] = useState(tickets.result.flights)
-    console.log(flights[0].flight)
-
+    const handlePageChange = () => {
+        setCurrentPage(prev => prev + 1);
+    };
 
     return (
         <div>
-            {flights.map((flight: any) =>
+            {currentFlights.map((flight: any) =>
                 <Ticket
                     price={flight.flight.price.total.amount}
                     key={flight.flightToken}
@@ -34,6 +29,12 @@ const TicketList = () => {
                     carrier={flight.flight.carrier}
                 />
             )}
+            <button
+                className={cls.btn}
+                onClick={handlePageChange}
+            >
+                Показать еще
+            </button>
         </div>
     );
 };
