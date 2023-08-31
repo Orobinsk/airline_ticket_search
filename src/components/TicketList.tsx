@@ -1,18 +1,18 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
 import Ticket from "./Ticket/Ticket";
 import cls from "../App.module.scss";
+import {Flight} from "../types/types";
 
+interface TicketListProps {
+    flights: Flight[],
+}
 
-const TicketList = ({flights}:any) => {
-
-    //paginations
+const TicketList: FC<TicketListProps> = ({flights}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
     const indexOfLastItem = currentPage * itemsPerPage;
-    // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentFlights = flights.slice(1, indexOfLastItem);
-    //
-    // const totalPages = Math.ceil(flights.length / itemsPerPage);
+
 
     const handlePageChange = () => {
         setCurrentPage(prev => prev + 1);
@@ -20,20 +20,25 @@ const TicketList = ({flights}:any) => {
 
     return (
         <div>
-            {currentFlights.map((flight: any) =>
+            {currentFlights.map((flight) =>
                 <Ticket
                     price={flight.flight.price.total.amount}
                     key={flight.flightToken}
                     legs={flight.flight.legs}
-                    carrier={flight.flight.carrier}
                 />
             )}
-            <button
-                className={cls.btn}
-                onClick={handlePageChange}
-            >
-                Показать еще
-            </button>
+            {flights.length === 0 ?
+                <p className={cls.error}>Билеты не найдены</p>
+                :
+                <button
+                    className={cls.btn}
+                    onClick={handlePageChange}
+                >
+                    Показать еще
+                </button>
+
+            }
+
         </div>
     );
 };

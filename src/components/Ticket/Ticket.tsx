@@ -1,24 +1,23 @@
 import React, {FC} from 'react';
 import cls from './Ticket.module.scss'
 import Segment from "../Segment/Segment";
+import { FlightLeg} from "../../types/types";
 
-// interface TicketProps{
-//     price:number,
-//     carrier:string,
-//     legs: [],
-// }
+interface TicketProps {
+    price: string,
+    legs: FlightLeg[],
+}
 
-const Ticket= (props: any) => {
+const Ticket: FC<TicketProps> = (props) => {
     const {
         price,
-        carrier,
         legs,
     } = props
 
     return (
         <div className={cls.Ticket}>
             <div className={cls.header}>
-                <div className={cls.icon}>icon</div>
+                <div className={cls.icon}></div>
                 <div className={cls.price_wrap}>
                     <div className={cls.price}>{price}</div>
                     <div className={cls.price_text}>Стоимость для одного взрослого пассажира</div>

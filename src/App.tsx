@@ -1,15 +1,26 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Sidebar from "./components/Sidebar/Sidebar";
 import cls from './App.module.scss'
 import TicketList from "./components/TicketList";
 import tickets from "./data/flights.json";
 import {useAirlines, useFlight} from "./components/hooks/useFlights";
+import {Flight} from "./types/types";
+
+interface FilterType {
+    sort: string,
+    filterTransfer: string,
+    filterPriceFrom: number,
+    filterPriceBefore: number,
+    filterAirlines: string[]
+}
 
 function App() {
+
     // @ts-ignore
-    const [flights, setFlights] = useState(tickets.result.flights)
-    const airlines= useAirlines(flights)
-    const [filter, setFilter] = useState({
+    const [flights, setFlights] = useState<Flight[]>(tickets.result.flights)
+    const airlines: string[] = useAirlines(flights)
+
+    const [filter, setFilter] = useState<FilterType>({
         sort: 'lowerPrice',
         filterTransfer: '',
         filterPriceFrom: 0,
@@ -17,11 +28,15 @@ function App() {
         filterAirlines: airlines
     })
 
-    useEffect(() => {
-        console.log(filter)
-    }, [filter, setFilter])
 
-    const sortedFlights = useFlight(flights, filter.sort, filter.filterTransfer, filter.filterPriceFrom, filter.filterPriceBefore, filter.filterAirlines)
+    const sortedFlights = useFlight(
+        flights,
+        filter.sort,
+        filter.filterTransfer,
+        filter.filterPriceFrom,
+        filter.filterPriceBefore,
+        filter.filterAirlines
+    )
 
     return (
         <div className={cls.app}>
