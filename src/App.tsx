@@ -3,21 +3,25 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import cls from './App.module.scss'
 import TicketList from "./components/TicketList";
 import tickets from "./data/flights.json";
-import {useFlight} from "./components/hooks/useFlights";
+import {useAirlines, useFlight} from "./components/hooks/useFlights";
 
 function App() {
     // @ts-ignore
     const [flights, setFlights] = useState(tickets.result.flights)
-    const [filter, setFilter] = useState({sort: 'lowerPrice', filterTransfer: '', filterPriceFrom: 0, filterPriceBefore: 1000000,})
+    const airlines= useAirlines(flights)
+    const [filter, setFilter] = useState({
+        sort: 'lowerPrice',
+        filterTransfer: '',
+        filterPriceFrom: 0,
+        filterPriceBefore: 1000000,
+        filterAirlines: airlines
+    })
 
-
-    console.log(flights[0].flight)
-    useEffect(()=>{
+    useEffect(() => {
         console.log(filter)
-    },[filter,setFilter])
+    }, [filter, setFilter])
 
-    const sortedFlights = useFlight(flights, filter.sort, filter.filterTransfer, filter.filterPriceFrom,filter.filterPriceBefore)
-
+    const sortedFlights = useFlight(flights, filter.sort, filter.filterTransfer, filter.filterPriceFrom, filter.filterPriceBefore, filter.filterAirlines)
 
     return (
         <div className={cls.app}>
@@ -25,6 +29,8 @@ function App() {
                 <Sidebar
                     filter={filter}
                     setFilter={setFilter}
+                    allAirlines={airlines}
+                    flights={sortedFlights}
                 />
                 <div className={cls.main}>
                     <div className={cls.tickets}>

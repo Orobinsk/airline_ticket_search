@@ -1,21 +1,42 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import cls from './Sidebar.module.scss'
+import {FilterAirlines, SortedFlights} from "../hooks/useFlights";
 
-const Sidebar = (props:any) => {
-    const{filter,setFilter}=props
+const Sidebar = (props: any) => {
+    const {filter, setFilter, allAirlines, flights} = props
+    const [airlines, setAirlines] = useState<string[]>([])
 
-    const onChangeFilterTransfers = (event:any) => {
-        if(!filter.filterTransfer.includes(event.target.value)){
-            setFilter({...filter,filterTransfer:event.target.value})
-        }
-        else  setFilter({...filter,filterTransfer:''})
+    const onChangeFilterTransfers = (event: any) => {
+        if (!filter.filterTransfer.includes(event.target.value)) {
+            setFilter({...filter, filterTransfer: event.target.value})
+        } else setFilter({...filter, filterTransfer: ''})
     }
-    const onChangeFilterPriceBefore = (event:any) => {
-        if(Number(event.target.value)===0){
-            setFilter({...filter,filterPriceBefore:1000000})
-        }
-        else  setFilter({...filter,filterPriceBefore:Number(event.target.value)})
+
+    const onChangeFilterPriceBefore = (event: any) => {
+        if (Number(event.target.value) === 0) {
+            setFilter({...filter, filterPriceBefore: 1000000})
+        } else setFilter({...filter, filterPriceBefore: Number(event.target.value)})
     }
+
+    const onChangeFilterAirlines = (event: any) => {
+        if (!airlines.includes(event.target.value)) {
+            setAirlines([...airlines, event.target.value])
+        } else {
+            setAirlines(airlines.filter(item => item !== event.target.value))
+        }
+    }
+    useEffect(() => {
+        if (airlines.length !== 0) {
+            setFilter({...filter, filterAirlines: airlines})
+        } else setFilter({...filter, filterAirlines: allAirlines})
+    }, [airlines])
+
+
+    // const truncatText=(text:string,widthParent:number) =>{
+    //
+    //    for(let textWidth=text.length*16;textWidth>widthParent;)
+    //
+    // }
 
     return (
         <div className={cls.Sidebar}>
@@ -27,7 +48,7 @@ const Sidebar = (props:any) => {
                         name="sort"
                         value="lowerPrice"
                         defaultChecked={true}
-                        onChange={()=>setFilter({...filter, sort:"lowerPrice"})}
+                        onChange={() => setFilter({...filter, sort: "lowerPrice"})}
                     />
                     - по возростанию цены
                 </label>
@@ -36,7 +57,7 @@ const Sidebar = (props:any) => {
                         type="radio"
                         name="sort"
                         value="higherPrice"
-                        onChange={()=>setFilter({...filter, sort:"higherPrice"})}
+                        onChange={() => setFilter({...filter, sort: "higherPrice"})}
                     />
                     - по убыванию цены
                 </label>
@@ -45,7 +66,7 @@ const Sidebar = (props:any) => {
                         type="radio"
                         name="sort"
                         value="time"
-                        onChange={()=>setFilter({...filter, sort:"duration"})}
+                        onChange={() => setFilter({...filter, sort: "duration"})}
                     />
                     - по времени в пути
                 </label>
@@ -58,7 +79,7 @@ const Sidebar = (props:any) => {
                         name="filterTransfer"
                         value="1 transfer"
                         onChange={onChangeFilterTransfers}
-                         checked={filter.filterTransfer === '1 transfer'}
+                        checked={filter.filterTransfer === '1 transfer'}
                     />
                     - 1 пересадка
                 </label>
@@ -82,7 +103,7 @@ const Sidebar = (props:any) => {
                         name="filterPrice"
                         placeholder='0'
                         min="0"
-                        onChange={e=> setFilter({...filter, filterPriceFrom:Number(e.target.value)})}
+                        onChange={e => setFilter({...filter, filterPriceFrom: Number(e.target.value)})}
                     />
                 </label>
                 <label>
@@ -98,14 +119,24 @@ const Sidebar = (props:any) => {
             </div>
             <div className={cls.airlines}>
                 <p>Авиакомпании</p>
-                <label>
-                    <input type="checkbox" name="filter" value="1 transfer" />
-                    название и цена "от"
-                </label>
-                <label>
-                    <input type="checkbox" name="sort" value="non-stop" />
-                    название и цена "от"
-                </label>
+                {allAirlines.map((airline: any) => {
+                    // console.log(flights,airline)
+                    // let filterAirline=FilterAirlines(flights,[airline])
+                    // let price= SortedFlights(filterAirline,'lowerPrice')
+                    // console.log(price[0].flight.price.total.amount)
+                    return (
+                        <label key={airline}>
+                            <input
+                                type="checkbox"
+                                name="filterAirline"
+                                value={airline}
+                                onChange={onChangeFilterAirlines}
+                            />
+                            {/*- {airline} от {price} р.*/}
+                            - {airline}
+                        </label>
+                    )
+                })}
             </div>
         </div>
     );

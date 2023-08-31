@@ -1,15 +1,14 @@
-import React from 'react';
+import React, {FC} from 'react';
 import cls from './Ticket.module.scss'
 import Segment from "../Segment/Segment";
 
-type TicketProps =
-    | string
-    | number
-    | boolean
-    | { [x: string]: TicketProps }
-    | Array<TicketProps>;
+// interface TicketProps{
+//     price:number,
+//     carrier:string,
+//     legs: [],
+// }
 
-const Ticket = (props: any) => {
+const Ticket= (props: any) => {
     const {
         price,
         carrier,

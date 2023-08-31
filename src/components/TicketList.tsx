@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import tickets from '../data/flights.json'
+import React, {useState} from 'react';
 import Ticket from "./Ticket/Ticket";
 import cls from "../App.module.scss";
 
