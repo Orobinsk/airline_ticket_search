@@ -6,7 +6,7 @@ import tickets from "./data/flights.json";
 import {useAirlines, useFlight} from "./components/hooks/useFlights";
 import {Flight} from "./types/types";
 
-interface FilterType {
+export interface FilterType {
     sort: string,
     filterTransfer: string,
     filterPriceFrom: number,
@@ -45,7 +45,7 @@ function App() {
                     filter={filter}
                     setFilter={setFilter}
                     allAirlines={airlines}
-                    flights={sortedFlights}
+                    flights={flights}
                 />
                 <div className={cls.main}>
                     <div className={cls.tickets}>

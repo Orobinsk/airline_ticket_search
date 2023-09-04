@@ -50,7 +50,14 @@ export const FilterAirlines = (filterPriceFlights: Flight[], airlines: string[])
     }, [filterPriceFlights, airlines]);
 }
 
-export const useFlight = (flights: Flight[], sort: string, filterTransfers: string, filterPriceFrom: number, filterPriceBefore: number, filterAirlines: string[]) => {
+export const useFlight = (
+    flights: Flight[],
+    sort: string,
+    filterTransfers: string,
+    filterPriceFrom: number,
+    filterPriceBefore: number,
+    filterAirlines: string[]
+) => {
     const sortedFlights = SortedFlights(flights, sort)
     const filterTransfersFlights = FilterTransfers(sortedFlights, filterTransfers)
     const filterPriceFlights = useFilterPrice(filterTransfersFlights, filterPriceFrom, filterPriceBefore)

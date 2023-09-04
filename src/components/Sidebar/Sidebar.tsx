@@ -1,24 +1,33 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import cls from './Sidebar.module.scss'
 import {FilterAirlines, SortedFlights} from "../hooks/useFlights";
+import {Flight} from "../../types/types";
+import {FilterType} from "../../App";
 
-const Sidebar = (props: any) => {
+interface SidebarProps{
+    filter:FilterType,
+    setFilter:React.Dispatch<React.SetStateAction<FilterType>>,
+    allAirlines:string[],
+    flights: Flight[]
+}
+
+const Sidebar:FC<SidebarProps> = (props: SidebarProps) => {
     const {filter, setFilter, allAirlines, flights} = props
     const [airlines, setAirlines] = useState<string[]>([])
 
-    const onChangeFilterTransfers = (event: any) => {
+    const onChangeFilterTransfers = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!filter.filterTransfer.includes(event.target.value)) {
             setFilter({...filter, filterTransfer: event.target.value})
         } else setFilter({...filter, filterTransfer: ''})
     }
 
-    const onChangeFilterPriceBefore = (event: any) => {
+    const onChangeFilterPriceBefore = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (Number(event.target.value) === 0) {
             setFilter({...filter, filterPriceBefore: 1000000})
         } else setFilter({...filter, filterPriceBefore: Number(event.target.value)})
     }
 
-    const onChangeFilterAirlines = (event: any) => {
+    const onChangeFilterAirlines = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!airlines.includes(event.target.value)) {
             setAirlines([...airlines, event.target.value])
         } else {
@@ -37,7 +46,6 @@ const Sidebar = (props: any) => {
     //    for(let textWidth=text.length*16;textWidth>widthParent;)
     //
     // }
-
     return (
         <div className={cls.Sidebar}>
             <div className={cls.sort}>
@@ -119,8 +127,7 @@ const Sidebar = (props: any) => {
             </div>
             <div className={cls.airlines}>
                 <p>Авиакомпании</p>
-                {allAirlines.map((airline: any) => {
-                    // console.log(flights,airline)
+                {allAirlines.map((airline: string) => {
                     // let filterAirline=FilterAirlines(flights,[airline])
                     // let price= SortedFlights(filterAirline,'lowerPrice')
                     // console.log(price[0].flight.price.total.amount)
