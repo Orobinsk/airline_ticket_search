@@ -1,6 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
 import cls from './Sidebar.module.scss'
-import {FilterAirlines, SortedFlights} from "../hooks/useFlights";
 import {Flight} from "../../types/types";
 import {FilterType} from "../../App";
 
@@ -40,12 +39,6 @@ const Sidebar:FC<SidebarProps> = (props: SidebarProps) => {
         } else setFilter({...filter, filterAirlines: allAirlines})
     }, [airlines])
 
-
-    // const truncatText=(text:string,widthParent:number) =>{
-    //
-    //    for(let textWidth=text.length*16;textWidth>widthParent;)
-    //
-    // }
     return (
         <div className={cls.Sidebar}>
             <div className={cls.sort}>
@@ -128,9 +121,7 @@ const Sidebar:FC<SidebarProps> = (props: SidebarProps) => {
             <div className={cls.airlines}>
                 <p>Авиакомпании</p>
                 {allAirlines.map((airline: string) => {
-                    // let filterAirline=FilterAirlines(flights,[airline])
-                    // let price= SortedFlights(filterAirline,'lowerPrice')
-                    // console.log(price[0].flight.price.total.amount)
+
                     return (
                         <label key={airline}>
                             <input
@@ -139,7 +130,6 @@ const Sidebar:FC<SidebarProps> = (props: SidebarProps) => {
                                 value={airline}
                                 onChange={onChangeFilterAirlines}
                             />
-                            {/*- {airline} от {price} р.*/}
                             - {airline}
                         </label>
                     )
