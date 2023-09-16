@@ -1,8 +1,21 @@
-# Getting Started with Create React App
+# airline ticket search
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## technology stack:
+- React
+- Typescript
 
-## Available Scripts
+## description:
+airline ticket search engine
+
+## implemented:
+* state management;
+* sort/filter;
+* pagination;
+* custom hooks;
+* reusable functionality
+
+
+### Available Scripts
 
 In the project directory, you can run:
 

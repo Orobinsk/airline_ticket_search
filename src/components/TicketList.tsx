@@ -14,7 +14,7 @@ const TicketList: FC<TicketListProps> = ({flights}) => {
     const currentFlights = flights.slice(1, indexOfLastItem);
 
 
-    const handlePageChange = () => {
+    const handlePageChange = (e:React.MouseEvent<HTMLButtonElement>) => {
         setCurrentPage(prev => prev + 1);
     };
 
